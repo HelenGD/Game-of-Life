@@ -1,43 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './main.css';
+import { Title } from '../title/title';
+import { CreateButton } from '../create-button /create-button';
+import { Card } from '../card/card';
 
 function Main() {
+  const [cards, setCards] = useState([
+    {
+      id: 1,
+      title: `Мёртвая`,
+      description: `или прикидывается`,
+      type: `dead`,
+    },
+    {
+      id: 2,
+      title: `Живая`,
+      description: `и шевелится`,
+      type: `live`,
+    },
+    // {
+    //   id: 3,
+    //   title: `Жизнь`,
+    //   description: `Ку-ку!`,
+    //   type: `life`,
+    // }
+  ])
+
+  const handleAdd = () => {
+    const newCard = Math.random() < 0.5
+      ? {
+        id: Math.random(),
+        title: `Мёртвая`,
+        description: `или прикидывается`,
+        type: `dead`,
+      }
+      : {
+        id: Math.random(),
+        title: `Живая`,
+        description: `и шевелится`,
+        type: `live`,
+      }
+    console.log('click')
+    setCards([newCard, ...cards])
+  }
+
   return (
     <div className="main-container">
-      <p className="main-title">Клеточное наполнение</p>
+      <Title />
       <div className="main-wrapper">
         <div className="cell-wrapper">
-          <div className="cell-container dead-cell-container">
-            <div className="image-wrapper image-wrapper-dead-cell">
-              <div className="image dead-cell-image"></div>
-            </div>
-            <div className="cell-description dead-cell-description">
-              <p className="cell-title dead-cell-title">Мёртвая</p>
-              <p className="cell-details dead-cell-details">или прикидывается</p>
-            </div>
-          </div>
-          <div className="cell-container live-cell-container">
-            <div className="image-wrapper image-wrapper-live-cell">
-              <div className="image live-cell-image"></div>
-            </div>
-            <div className="cell-description dead-cell-description">
-              <p className="cell-title dead-cell-title">Живая</p>
-              <p className="cell-details dead-cell-details">и шевелится</p>
-            </div>
-          </div>
-          <div className="cell-container live-container">
-            <div className="image-wrapper image-wrapper-live">
-              <div className="image live-image"></div>
-            </div>
-            <div className="cell-description dead-cell-description">
-              <p className="cell-title dead-cell-title">Жизнь</p>
-              <p className="cell-details dead-cell-details">Ку-ку!</p>
-            </div>
-          </div>
+          {cards.map(({ id, title, description, type }) => (
+            <Card
+              key={id}
+              title={title}
+              description={description}
+              type={type}
+            />
+          ))}
+          
         </div>
-        <div className="button-container">
-          <button className="create-button" type="button">Сотворить</button>
-        </div>
+        <CreateButton onClick={handleAdd}/>
       </div>
     </div>
   );

@@ -1,0 +1,21 @@
+.button-container {
+  text-align: center;
+}
+
+.create-button {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 104%;
+  text-align: center;
+  letter-spacing: 0.0125em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border: none; 
+  outline: none;
+  background: #5A3472;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+}
