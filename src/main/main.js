@@ -1,30 +1,12 @@
 import React, { useState } from 'react';
 import './main.css';
 import { Title } from '../title/title';
-import { CreateButton } from '../create-button /create-button';
+import { CreateButton } from '../create-button/create-button';
 import { Card } from '../card/card';
+import { isNeedLifeCard, isNeedKillLife } from '../utils';
 
 function Main() {
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: `Мёртвая`,
-      description: `или прикидывается`,
-      type: `dead`,
-    },
-    {
-      id: 2,
-      title: `Живая`,
-      description: `и шевелится`,
-      type: `live`,
-    },
-    // {
-    //   id: 3,
-    //   title: `Жизнь`,
-    //   description: `Ку-ку!`,
-    //   type: `life`,
-    // }
-  ])
+  const [cards, setCards] = useState([])
 
   const handleAdd = () => {
     const newCard = Math.random() < 0.5
@@ -39,9 +21,20 @@ function Main() {
         title: `Живая`,
         description: `и шевелится`,
         type: `live`,
-      }
-    console.log('click')
-    setCards([newCard, ...cards])
+      };
+
+    const newCards = [newCard, ...cards];
+    if (isNeedLifeCard(newCards)) {
+      newCards.unshift({
+        id: Math.random(),
+        title: `Жизнь`,
+        description: `Ку-ку!`,
+        type: `life`,
+      });
+    } else if (isNeedKillLife(newCards)) {
+      newCards.splice(3, 1);
+    }
+    setCards(newCards);
   }
 
   return (
@@ -66,3 +59,5 @@ function Main() {
 }
 
 export { Main };
+
+    
