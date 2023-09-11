@@ -1,32 +1,34 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './main.css';
 import { Title } from '../title/title';
 import { CreateButton } from '../create-button/create-button';
 import { Card } from '../card/card';
 import { isNeedLifeCard, isNeedKillLife } from '../utils';
+import { Cell } from '../entities/cell/types';
 
 function Main() {
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState<Cell[]>([]);
 
   const handleAdd = () => {
-    const newCard = Math.random() < 0.5
-      ? {
-        id: Math.random(),
-        title: `Мёртвая`,
-        description: `или прикидывается`,
-        type: `dead`,
-      }
-      : {
-        id: Math.random(),
-        title: `Живая`,
-        description: `и шевелится`,
-        type: `live`,
-      };
+    const newCard: Cell =
+      Math.random() < 0.5
+        ? {
+            id: crypto.randomUUID(),
+            title: `Мёртвая`,
+            description: `или прикидывается`,
+            type: `dead`,
+          }
+        : {
+            id: crypto.randomUUID(),
+            title: `Живая`,
+            description: `и шевелится`,
+            type: `live`,
+          };
 
     const newCards = [newCard, ...cards];
     if (isNeedLifeCard(newCards)) {
       newCards.unshift({
-        id: Math.random(),
+        id: crypto.randomUUID(),
         title: `Жизнь`,
         description: `Ку-ку!`,
         type: `life`,
@@ -35,7 +37,7 @@ function Main() {
       newCards.splice(3, 1);
     }
     setCards(newCards);
-  }
+  };
 
   return (
     <div className="main-container">
@@ -50,14 +52,11 @@ function Main() {
               type={type}
             />
           ))}
-          
         </div>
-        <CreateButton onClick={handleAdd}/>
+        <CreateButton onClick={handleAdd} />
       </div>
     </div>
   );
 }
 
 export { Main };
-
-    

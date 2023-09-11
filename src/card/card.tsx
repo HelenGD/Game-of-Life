@@ -1,19 +1,26 @@
-import React from 'react';
+import { FC } from 'react';
 import './card.css';
+import { CellType } from '../entities/cell/types';
 
-const imgTypes = {
+const imgTypes: Record<CellType, string> = {
   dead: 'dead-cell-image',
   live: 'live-cell-image',
-  life: 'life-image'
-}
+  life: 'life-image',
+};
 
-const gradietTypes = {
+const gradietTypes: Record<CellType, string> = {
   dead: 'image-wrapper-dead-cell',
   live: 'image-wrapper-live-cell',
-  life: 'image-wrapper-life'
-}
+  life: 'image-wrapper-life',
+};
 
-function Card(props) {
+type Props = {
+  title: string;
+  description: string;
+  type: CellType;
+};
+
+export const Card: FC<Props> = (props) => {
   const { title, description, type } = props;
 
   return (
@@ -27,6 +34,4 @@ function Card(props) {
       </div>
     </div>
   );
-}
-
-export { Card };
+};
