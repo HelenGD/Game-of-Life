@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import './main.css';
 import { Title } from '../title/title';
 import { CreateButton } from '../create-button/create-button';
 import { Card } from '../card/card';
 import { isNeedLifeCard, isNeedKillLife } from '../utils';
 import { Cell } from '../entities/cell/types';
+import { useCell } from '../entities/cell/useCell';
 
 function Main() {
-  const [cards, setCards] = useState<Cell[]>([]);
+  const [cards, setCards] = useCell();
 
   const handleAdd = () => {
     const newCard: Cell =
